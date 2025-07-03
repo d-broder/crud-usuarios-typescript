@@ -69,28 +69,56 @@ const TarefasPage: React.FC = () => {
   };
 
   return (
-    <div className="tarefas-container">
-      <h3>Minhas Tarefas</h3>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Título" value={titulo} onChange={e => setTitulo(e.target.value)} required />
-        <input type="text" placeholder="Descrição" value={descricao} onChange={e => setDescricao(e.target.value)} />
-        <button type="submit">{editId ? 'Atualizar' : 'Criar'}</button>
-        {editId && <button type="button" onClick={() => { setEditId(null); setTitulo(''); setDescricao(''); }}>Cancelar</button>}
-      </form>
-      {error && <div className="error">{error}</div>}
-      <ul>
-        {tarefas.map(tarefa => (
-          <li key={tarefa.id}>
-            <strong>{tarefa.titulo}</strong> - {tarefa.descricao}
-            <button onClick={() => handleEdit(tarefa)}>Editar</button>
-            <button onClick={() => handleDelete(tarefa.id)}>Excluir</button>
-          </li>
-        ))}
-      </ul>
-      <div className="pagination">
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>Anterior</button>
-        <span>Página {page}</span>
-        <button onClick={() => setPage(page + 1)} disabled={page * pageSize >= total}>Próxima</button>
+    <div className="card shadow-lg border-0 mb-4">
+      <div className="card-body">
+        <div className="d-flex align-items-center mb-3">
+          <i className="bi bi-list-task display-6 text-success me-2"></i>
+          <h3 className="card-title mb-0 fw-bold">Minhas Tarefas</h3>
+        </div>
+        <form className="row g-3 align-items-end mb-4" onSubmit={handleSubmit}>
+          <div className="col-md-5">
+            <label htmlFor="titulo" className="form-label">Título</label>
+            <input type="text" id="titulo" className="form-control form-control-lg" placeholder="Título" value={titulo} onChange={e => setTitulo(e.target.value)} required />
+          </div>
+          <div className="col-md-5">
+            <label htmlFor="descricao" className="form-label">Descrição</label>
+            <input type="text" id="descricao" className="form-control form-control-lg" placeholder="Descrição" value={descricao} onChange={e => setDescricao(e.target.value)} />
+          </div>
+          <div className="col-md-2 d-grid gap-2">
+            <button type="submit" className={`btn btn-lg ${editId ? 'btn-warning' : 'btn-success'}`}>{editId ? 'Atualizar' : 'Criar'}</button>
+            {editId && <button type="button" className="btn btn-secondary btn-lg" onClick={() => { setEditId(null); setTitulo(''); setDescricao(''); }}>Cancelar</button>}
+          </div>
+        </form>
+        {error && <div className="alert alert-danger py-2 text-center">{error}</div>}
+        <ul className="list-group mb-3">
+          {tarefas.map(tarefa => (
+            <li key={tarefa.id} className="list-group-item d-flex justify-content-between align-items-center py-3">
+              <div>
+                <strong className="fs-5">{tarefa.titulo}</strong>
+                {tarefa.descricao && <span className="text-muted ms-2">- {tarefa.descricao}</span>}
+              </div>
+              <div>
+                <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit(tarefa)}>
+                  <i className="bi bi-pencil-square"></i> Editar
+                </button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(tarefa.id)}>
+                  <i className="bi bi-trash"></i> Excluir
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <nav className="d-flex justify-content-center">
+          <ul className="pagination mb-0">
+            <li className={`page-item${page === 1 ? ' disabled' : ''}`}>
+              <button className="page-link" onClick={() => setPage(page - 1)} disabled={page === 1}>Anterior</button>
+            </li>
+            <li className="page-item disabled"><span className="page-link">Página {page}</span></li>
+            <li className={`page-item${page * pageSize >= total ? ' disabled' : ''}`}>
+              <button className="page-link" onClick={() => setPage(page + 1)} disabled={page * pageSize >= total}>Próxima</button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

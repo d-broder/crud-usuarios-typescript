@@ -14,12 +14,11 @@ function Main() {
       {showRecover ? (
         <>
           <RecoverPasswordPage />
-          <button onClick={() => setShowRecover(false)}>Voltar ao Login</button>
+          <button onClick={() => setShowRecover(false)} className="btn btn-link mt-3">Voltar ao Login</button>
         </>
       ) : (
         <>
-          <LoginPage />
-          <button onClick={() => setShowRecover(true)} style={{ marginTop: 16 }}>Esqueci minha senha</button>
+          <LoginPage onRecoverPassword={() => setShowRecover(true)} />
         </>
       )}
     </div>

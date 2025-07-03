@@ -27,20 +27,36 @@ const RegisterUser: React.FC = () => {
   };
 
   return (
-    <div className="register-user-container">
-      <h3>Cadastrar Novo Usuário</h3>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} required />
-        <input type="text" placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required />
-        <select value={tipo} onChange={e => setTipo(e.target.value)} required>
-          <option value="1">Usuário Comum</option>
-          <option value="0">Administrador</option>
-        </select>
-        <button type="submit">Cadastrar</button>
-        {message && <div className="success">{message}</div>}
-        {error && <div className="error">{error}</div>}
-      </form>
+    <div className="card shadow border-0">
+      <div className="card-body">
+        <h4 className="card-title mb-3 fw-bold text-primary">Cadastrar Novo Usuário</h4>
+        <form className="row g-3" onSubmit={handleSubmit}>
+          <div className="col-md-6">
+            <label className="form-label">Usuário</label>
+            <input type="text" className="form-control form-control-lg" placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} required />
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Nome</label>
+            <input type="text" className="form-control form-control-lg" placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)} required />
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Senha</label>
+            <input type="password" className="form-control form-control-lg" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required />
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Tipo</label>
+            <select className="form-select form-select-lg" value={tipo} onChange={e => setTipo(e.target.value)} required>
+              <option value="1">Usuário Comum</option>
+              <option value="0">Administrador</option>
+            </select>
+          </div>
+          <div className="col-12 d-grid gap-2 mt-2">
+            <button type="submit" className="btn btn-primary btn-lg">Cadastrar</button>
+          </div>
+        </form>
+        {message && <div className="alert alert-success py-2 mt-3 text-center">{message}</div>}
+        {error && <div className="alert alert-danger py-2 mt-3 text-center">{error}</div>}
+      </div>
     </div>
   );
 };
