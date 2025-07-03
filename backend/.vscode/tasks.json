@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "shell",
+      "command": "npx ts-node-dev src/index.ts",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "npx tsc",
+      "group": "build",
+      "problemMatcher": ["$tsc"]
+    }
+  ]
+}
