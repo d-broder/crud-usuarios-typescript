@@ -22,4 +22,15 @@ model Usuario {
   Status       String   @db.Char(1) // A: Ativo, I: Inativo, B: Bloqueado
   Quant_Acesso Int?
   Tentativas_Erro Int?   // Novo campo para tentativas inválidas
+  tarefas      Tarefa[]
+}
+
+model Tarefa {
+  id        Int      @id @default(autoincrement())
+  titulo    String   @db.VarChar(100)
+  descricao String?  @db.VarChar(255)
+  criadaEm  DateTime @default(now())
+  atualizadaEm DateTime @updatedAt
+  usuario   Usuario  @relation(fields: [usuarioUsername], references: [Username])
+  usuarioUsername String @db.VarChar(30)
 }

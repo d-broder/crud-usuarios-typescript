@@ -4,6 +4,7 @@ import cors from 'cors';
 import { PrismaClient } from './generated/prisma';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import tarefaRoutes from './routes/tarefaRoutes';
 import { Request, Response } from 'express';
 
 // Carrega variáveis de ambiente
@@ -16,6 +17,7 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/tarefas', tarefaRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'API CRUD Usuários - Backend rodando!' });

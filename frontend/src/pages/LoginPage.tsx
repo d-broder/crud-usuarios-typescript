@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
     try {
       await login(username, password);
     } catch (err: any) {
-      setError('Usuário ou senha inválidos.');
+      setError(err.response?.data?.error || 'Usuário ou senha inválidos.');
     }
   };
 

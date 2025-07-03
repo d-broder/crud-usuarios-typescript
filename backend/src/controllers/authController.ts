@@ -29,14 +29,19 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   if (!senhaCorreta) {
     // Incrementa tentativas de erro e bloqueia após 3
     const novasTentativas = (usuario.Tentativas_Erro || 0) + 1;
+    const novoStatus = novasTentativas >= 3 ? 'B' : usuario.Status;
     await prisma.usuario.update({
       where: { Username: username },
       data: {
         Tentativas_Erro: novasTentativas,
-        Status: novasTentativas >= 3 ? 'B' : usuario.Status
+        Status: novoStatus
       }
     });
-    res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+    if (novoStatus === 'B') {
+      res.status(403).json({ error: 'Usuário bloqueado por tentativas inválidas.' });
+    } else {
+      res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+    }
     return;
   }
 
