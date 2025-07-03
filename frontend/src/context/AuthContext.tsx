@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import api from '../services/api';
 
 interface User {
   username: string;
@@ -30,7 +31,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (username: string, password: string) => {
-    // TODO: Integrar com API backend
+    const response = await api.post('/auth/login', { username, password });
+    const { token, nome, tipo } = response.data;
+    const user: User = { username, nome, tipo, status: 'A' };
+    setToken(token);
+    setUser(user);
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   const logout = () => {

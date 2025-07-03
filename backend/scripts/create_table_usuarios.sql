@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     Nome          VARCHAR(120) NOT NULL,
     Tipo          CHAR(1) NOT NULL, -- 0: Administrador, 1: Usuário Comum
     Status        CHAR(1) NOT NULL, -- A: Ativo, I: Inativo, B: Bloqueado
-    Quant_Acesso  INTEGER DEFAULT 0
+    Quant_Acesso  INTEGER DEFAULT 0,
+    Tentativas_Erro INTEGER DEFAULT 0 -- Novo campo para tentativas inválidas
 );

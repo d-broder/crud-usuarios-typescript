@@ -21,4 +21,5 @@ model Usuario {
   Tipo         String   @db.Char(1) // 0: Administrador, 1: Usuário Comum
   Status       String   @db.Char(1) // A: Ativo, I: Inativo, B: Bloqueado
   Quant_Acesso Int?
+  Tentativas_Erro Int?   // Novo campo para tentativas inválidas
 }
