@@ -1,13 +1,27 @@
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import RecoverPasswordPage from './pages/RecoverPasswordPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { useState } from 'react';
 import './App.css';
 
 function Main() {
   const { user } = useAuth();
+  const [showRecover, setShowRecover] = useState(false);
+  if (user) return <div className="app-container"><DashboardPage /></div>;
   return (
     <div className="app-container">
-      {user ? <DashboardPage /> : <LoginPage />}
+      {showRecover ? (
+        <>
+          <RecoverPasswordPage />
+          <button onClick={() => setShowRecover(false)}>Voltar ao Login</button>
+        </>
+      ) : (
+        <>
+          <LoginPage />
+          <button onClick={() => setShowRecover(true)} style={{ marginTop: 16 }}>Esqueci minha senha</button>
+        </>
+      )}
     </div>
   );
 }
